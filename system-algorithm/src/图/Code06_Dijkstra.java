@@ -60,7 +60,15 @@ public class Code06_Dijkstra {
 	}
 	
 	
-	
+	public static class NodeRecord {
+		public Node node;
+		public int distance;
+
+		public NodeRecord(Node node, int distance) {
+			this.node = node;
+			this.distance = distance;
+		}
+	}
 	
 	
 	
@@ -84,6 +92,28 @@ public class Code06_Dijkstra {
 			size = 0;
 		}
 		
+		public boolean isEmpty() {
+			return size == 0;
+		}
+		
+		private boolean isEntered (Node node) {
+			return heapIndexMap.containsKey(node);
+		}
+		
+		private boolean inHeap(Node node) {
+			return isEntered(node) && heapIndexMap.get(node) != -1;
+		}
+		
+		public NodeRecord pop() {
+			NodeRecord nodeRecord = new NodeRecord(nodes[0], distanceMap.get(nodes[0]));
+			
+			
+			
+			
+			
+			return nodeRecord;
+		}
+		
 		
 		public void heapIfy(int index, int size) {
 			int left = index * 2 + 1;
@@ -96,6 +126,13 @@ public class Code06_Dijkstra {
 				swap(smallest, index);
 				index = smallest;
 				left = index * 2 + 1;
+			}
+		}
+		
+		public void insertHeapIfy(int index) {
+			while(distanceMap.get(nodes[index]) < distanceMap.get(nodes[(index - 1) / 2])) {
+				swap(index, (index - 1) / 2);
+				index = (index - 1) / 2;
 			}
 		}
 		
