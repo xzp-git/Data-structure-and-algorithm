@@ -106,11 +106,11 @@ public class Code06_Dijkstra {
 		
 		public NodeRecord pop() {
 			NodeRecord nodeRecord = new NodeRecord(nodes[0], distanceMap.get(nodes[0]));
-			
-			
-			
-			
-			
+			swap(0, size - 1);
+			heapIndexMap.put(nodes[size - 1], -1);
+			distanceMap.remove(nodes[size - 1]);
+			nodes[size - 1] = null;
+			heapIfy(0, --size);
 			return nodeRecord;
 		}
 		
@@ -128,7 +128,7 @@ public class Code06_Dijkstra {
 				left = index * 2 + 1;
 			}
 		}
-		
+		//和他的父亲比 如果小就上去
 		public void insertHeapIfy(int index) {
 			while(distanceMap.get(nodes[index]) < distanceMap.get(nodes[(index - 1) / 2])) {
 				swap(index, (index - 1) / 2);
@@ -144,6 +144,40 @@ public class Code06_Dijkstra {
 			nodes[i] = nodes[j];
 			nodes[j] = tmp;
 		}
+		// 有一个点叫node，现在发现了一个从源节点出发到达node的距离为distance
+		// 判断要不要更新，如果需要的话，就更新
+		public void addOrUpdateOrIgnore(Node node, int distance) {
+			if(inHeap(node)) {
+				distanceMap.put(node, Math.min(distance, distanceMap.get(node)));
+				insertHeapIfy(heapIndexMap.get(node));
+			}
+			if(!isEntered(node)) {
+				distanceMap.put(node, distance);
+				nodes[size] = node;
+				heapIndexMap.put(node, size);
+				insertHeapIfy(size++);
+				
+			}
+		}
+	}
+	
+	
+	public static HashMap<Node, Integer> dijkstra2(Node head, int size){
+		NodeHeap nodeHeap = new NodeHeap(size);
+		nodeHeap.addOrUpdateOrIgnore(head, 0);
+		HashMap<Node, Integer> result = new HashMap<>();
+		
+		while(!nodeHeap.isEmpty()) {
+			NodeRecord nodeRecord = nodeHeap.pop();
+			Node cur = nodeRecord.node;
+			int distance = nodeRecord.distance;
+			
+			for (Edge edge : cur.edges) {
+				nodeHeap.addOrUpdateOrIgnore(edge.to, edge.weight + distance);
+			}
+			result.put(cur, distance);
+		}
+		return result;
 	}
 	
 	
