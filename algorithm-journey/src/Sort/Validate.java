@@ -1,4 +1,4 @@
-package class05;
+package Sort;
 
 public class Validate {
 	
@@ -18,23 +18,22 @@ public class Validate {
 		for(int minIndex, i = 0; i < arr.length; i++) {
 			minIndex = i;
 			for(int j = i + 1; j < arr.length; j++) {
-				if (arr[j] < arr[minIndex]) {
+				if(arr[j] < arr[minIndex]) {
 					minIndex = j;
 				}
 			}
-			swap(arr, minIndex, i);
+			swap(arr, i, minIndex);
 		}
-	
 	}
 	
 	public static void bubbleSort(int[] arr) {
-		if (arr == null || arr.length < 2) {
+		if(arr == null || arr.length < 2) {
 			return;
 		}
-		for(int i = arr.length - 1; i >= 0; i--) {
-			for(int j = 0; j < i; j++) {
-				if (arr[j] > arr[j + 1]) {
-					swap(arr, j, j + 1);
+		for(int i = arr.length - 1; i > 0; i--) {
+			for (int j = 0; j < i; j++) {
+				if(arr[j + 1] < arr[j]) {
+					swap(arr, j+1, j);
 				}
 			}
 		}
@@ -46,7 +45,7 @@ public class Validate {
 		}
 		for(int i = 1; i < arr.length; i++) {
 			for(int j = i - 1; j >= 0 && arr[j + 1] < arr[j]; j--) {
-				swap(arr, j + 1, j);
+				swap(arr, j, j + 1);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-package class03;
+package BitwiseOperation;
 
 // 本文件的实现是用int来举例的
 // 对于long类型完全同理

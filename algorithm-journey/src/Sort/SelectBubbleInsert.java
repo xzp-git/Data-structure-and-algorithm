@@ -1,6 +1,4 @@
-package class04;
-
-import java.util.Iterator;
+package Sort;
 
 public class SelectBubbleInsert {
 	

@@ -1,4 +1,4 @@
-package class06;
+package BinarySearch;
 
 import java.util.Arrays;
 //有序数组中找>=num的最左位置

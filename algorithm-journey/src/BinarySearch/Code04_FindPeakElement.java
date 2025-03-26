@@ -1,4 +1,4 @@
-package class06;
+package BinarySearch;
 
 
 //峰值元素是指其值严格大于左右相邻值的元素
